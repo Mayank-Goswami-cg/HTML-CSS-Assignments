@@ -1,0 +1,693 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Netflix - Home</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #e50914;
+            --black: #141414;
+            --white: #fff;
+            --grey: #b3b3b3;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+
+        .header-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 18px 4.2%;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.8),
+                transparent
+            );
+        }
+
+        .left-side,
+        .right-side,
+        .menu-links,
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .left-side {
+            gap: 34px;
+        }
+
+        .logo-img {
+            width: 92px;
+            flex-shrink: 0;
+        }
+
+        .menu-links {
+            gap: 19px;
+            font-size: 13px;
+        }
+
+        .menu-links a {
+            color: #e5e5e5;
+            transition: 0.2s;
+        }
+
+        .menu-links a:hover,
+        .menu-links .selected {
+            color: white;
+            font-weight: bold;
+        }
+
+        .right-side {
+            gap: 18px;
+        }
+
+        .right-side > a > img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .children-link {
+            font-size: 13px;
+        }
+
+        .user-profile {
+            gap: 7px;
+        }
+
+        .user-profile img:first-child {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+        }
+
+        .user-profile .arrow-img {
+            width: 12px;
+            height: 12px;
+        }
+
+
+        .featured {
+            position: relative;
+            height: 57vw;
+            min-height: 650px;
+            max-height: 810px;
+
+            background: url("Title-Image.png") center top / cover no-repeat;
+        }
+
+        .dark-layer {
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to top,
+                    var(--black),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    to right,
+                    rgba(0, 0, 0, 0.45),
+                    transparent 65%
+                );
+        }
+
+        .featured-info {
+            position: absolute;
+            top: 31%;
+            left: 4.2%;
+            z-index: 1;
+        }
+
+        .series-name {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-bottom: 8px;
+
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 4px;
+        }
+
+        .netflix-letter {
+            color: var(--red);
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 0;
+        }
+
+        .featured-info h1 {
+            margin-left: -5px;
+            font-size: clamp(52px, 7.5vw, 108px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            font-weight: 800;
+        }
+
+
+        .action-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            min-height: 38px;
+            padding: 8px 17px;
+
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .action:hover {
+            opacity: 0.8;
+        }
+
+        .action img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .play-action {
+            background: white;
+            color: #111;
+        }
+
+        .play-action img {
+            filter: brightness(0);
+        }
+
+        .info-action {
+            background: rgba(109, 109, 110, 0.75);
+            color: white;
+        }
+
+        .rating {
+            position: absolute;
+            right: 0;
+            bottom: 20%;
+
+            display: flex;
+            align-items: center;
+
+            min-width: 95px;
+            padding: 9px 24px 9px 12px;
+
+            background: rgba(51, 51, 51, 0.6);
+            border-left: 3px solid #dcdcdc;
+
+            font-size: 14px;
+        }
+
+
+        .movie-section {
+            position: relative;
+            z-index: 2;
+            margin-top: -105px;
+            padding-bottom: 20px;
+        }
+
+        .movie-row {
+            margin-bottom: 31px;
+            padding-left: 4.2%;
+        }
+
+        .movie-row h2 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 12px;
+
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .next-arrow {
+            color: #54b9c5;
+            font-size: 28px;
+            line-height: 18px;
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        .movie-row:hover .next-arrow {
+            opacity: 1;
+        }
+
+
+        .movie-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+            padding-right: 4.2%;
+        }
+
+        .movie-poster {
+            display: block;
+            overflow: hidden;
+            border-radius: 3px;
+            transition: transform 0.25s ease;
+        }
+
+        .movie-poster img {
+            width: 100%;
+            aspect-ratio: 260 / 146;
+            object-fit: cover;
+        }
+
+        .movie-poster:hover {
+            transform: scale(1.04);
+        }
+
+
+        .ranking-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+            padding-right: 4.2%;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: flex-end;
+            min-width: 0;
+            overflow: hidden;
+            transition: transform 0.25s ease;
+        }
+
+        .ranking-item:hover {
+            transform: scale(1.04);
+        }
+
+        .ranking-number {
+            width: 43%;
+            max-width: 95px;
+            height: auto;
+            object-fit: contain;
+            object-position: bottom;
+        }
+
+        .ranking-image {
+            width: 57%;
+            height: 145px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 3px;
+        }
+
+
+        .page-footer {
+            width: min(850px, 78%);
+            margin: 55px auto 30px;
+            color: var(--grey);
+            font-size: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 17px;
+            margin-bottom: 25px;
+        }
+
+        .social-icons img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .footer-menu {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin-bottom: 24px;
+        }
+
+        .footer-menu div {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .page-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .service {
+            display: inline-block;
+            padding: 7px 9px;
+            margin-bottom: 18px;
+            border: 1px solid #808080;
+        }
+
+        .copyright {
+            font-size: 11px;
+        }
+
+       
+
+    </style>
+</head>
+
+<body>
+
+
+    <header class="header-bar">
+
+        <div class="left-side">
+
+            <a href="#" class="logo-img">
+                <img src="NetflixLogoSvg.png" alt="Netflix">
+            </a>
+
+            <nav class="menu-links">
+                <a href="#" class="selected">Home</a>
+                <a href="#">TV Shows</a>
+                <a href="#">Movies</a>
+                <a href="#">New &amp; Popular</a>
+                <a href="#">My List</a>
+            </nav>
+
+        </div>
+
+        <div class="right-side">
+
+            <a href="#" aria-label="Search">
+                <img src="Search.png" alt="">
+            </a>
+
+            <a href="#" class="children-link">Children</a>
+
+            <a href="#" aria-label="Notifications">
+                <img src="NotificationBell.png" alt="">
+            </a>
+
+            <a href="#" class="user-profile">
+                <img src="ProfileIMG.png" alt="Profile">
+                <img src="DownArrow.png" class="arrow-img" alt="">
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+
+        <section class="featured">
+
+            <div class="dark-layer"></div>
+
+            <div class="featured-info">
+
+                <p class="series-name">
+                    <span class="netflix-letter">N</span>
+                    SERIES
+                </p>
+
+                <h1>MAID</h1>
+
+                <div class="action-buttons">
+
+                    <a href="#" class="action play-action">
+                        <img src="Play.png" alt="">
+                        Play
+                    </a>
+
+                    <a href="#" class="action info-action">
+                        <img src="Detail.png" alt="">
+                        More Info
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="rating">
+                <span>16+</span>
+            </div>
+
+        </section>
+
+
+        <div class="movie-section">
+
+
+            <section class="movie-row">
+
+                <h2>
+                    See again
+                    <span class="next-arrow">›</span>
+                </h2>
+
+                <div class="movie-gallery">
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 1.1.png" alt="You">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 1.2.png" alt="Series poster">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 1.3.png" alt="Universe">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 1.4.png" alt="The Last Kingdom">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 1.5.png" alt="Money Heist">
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <section class="movie-row">
+
+                <h2>
+                    Top 10 in your country
+                    <span class="next-arrow">›</span>
+                </h2>
+
+                <div class="ranking-gallery">
+
+                    <a href="#" class="ranking-item">
+                        <img class="ranking-number" src="Rank - 01.png" alt="1">
+                        <img class="ranking-image" src="section 2.1.png" alt="Top title 1">
+                    </a>
+
+                    <a href="#" class="ranking-item">
+                        <img class="ranking-number" src="Rank - 02.png" alt="2">
+                        <img class="ranking-image" src="section 2.2.png" alt="Top title 2">
+                    </a>
+
+                    <a href="#" class="ranking-item">
+                        <img class="ranking-number" src="Rank - 03.png" alt="3">
+                        <img class="ranking-image" src="section 2.3.png" alt="Top title 3">
+                    </a>
+
+                    <a href="#" class="ranking-item">
+                        <img class="ranking-number" src="Rank - 04.png" alt="4">
+                        <img class="ranking-image" src="section 2.4.png" alt="Top title 4">
+                    </a>
+
+                    <a href="#" class="ranking-item">
+                        <img class="ranking-number" src="Rank - 05.png" alt="5">
+                        <img class="ranking-image" src="section 2.5.png" alt="Top title 5">
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <section class="movie-row">
+
+                <h2>
+                    Trending now
+                    <span class="next-arrow">›</span>
+                </h2>
+
+                <div class="movie-gallery">
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 3.1.png" alt="Trending title 1">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 3.2.png" alt="Trending title 2">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 3.3.png" alt="Trending title 3">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 3.4.png" alt="Trending title 4">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 3.5.png" alt="Trending title 5">
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <section class="movie-row">
+
+                <h2>
+                    Sci-fi shows
+                    <span class="next-arrow">›</span>
+                </h2>
+
+                <div class="movie-gallery">
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 4.1.png" alt="Sci-fi show 1">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 4.2.png" alt="Sci-fi show 2">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 4.3.png" alt="Sci-fi show 3">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 4.4.png" alt="Sci-fi show 4">
+                    </a>
+
+                    <a href="#" class="movie-poster">
+                        <img src="section 4.5.png" alt="Sci-fi show 5">
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <footer class="page-footer">
+
+        <div class="social-icons">
+
+            <a href="#" aria-label="Facebook">
+                <img src="facebook.png" alt="">
+            </a>
+
+            <a href="#" aria-label="Instagram">
+                <img src="instagram.png" alt="">
+            </a>
+
+            <a href="#" aria-label="Twitter">
+                <img src="twitter.png" alt="">
+            </a>
+
+            <a href="#" aria-label="YouTube">
+                <img src="youtube.png" alt="">
+            </a>
+
+        </div>
+
+        <div class="footer-menu">
+
+            <div>
+                <a href="#">Audio Description</a>
+                <a href="#">Investor Relations</a>
+                <a href="#">Legal Notices</a>
+            </div>
+
+            <div>
+                <a href="#">Help Centre</a>
+                <a href="#">Jobs</a>
+                <a href="#">Cookie Preferences</a>
+            </div>
+
+            <div>
+                <a href="#">Gift Cards</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Corporate Information</a>
+            </div>
+
+            <div>
+                <a href="#">Media Centre</a>
+                <a href="#">Privacy</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+        </div>
+
+        <a href="#" class="service">Service Code</a>
+
+        <p class="copyright">
+            © 1997-2026 Netflix, Inc.
+        </p>
+
+    </footer>
+
+</body>
+</html>
