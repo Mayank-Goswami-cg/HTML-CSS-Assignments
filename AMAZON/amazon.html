@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amazon Homepage</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #cbd5d8;
+        }
+
+
+        .top-nav {
+            height: 60px;
+            background: #131921;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+        }
+
+        .brand img {
+            width: 100px;
+        }
+
+        .delivery {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .delivery img {
+            height: 25px;
+            margin-right: 5px;
+        }
+
+        .search-box {
+            display: flex;
+            width: 50%;
+            height: 40px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .search-box button {
+            width: 55px;
+            border: none;
+            background: #febd69;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .nav-option {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 5px;
+        }
+
+
+        .category-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: #232f3e;
+            color: white;
+            padding: 12px 5px;
+        }
+
+        .menu-all {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+
+        .hero {
+            height: 310px;
+            background-image: url('background picture.png');
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            color: white;
+        }
+
+
+        .shopping-area {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            padding: 15px;
+            margin-top: -5px;
+        }
+
+        .shopping-card {
+            background: white;
+            width: 25%;
+            padding: 20px;
+        }
+
+        .shopping-card h2 {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .item-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .item {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        .item img {
+            width: 100%;
+            height: 115px;
+        }
+
+        .item p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .shop-link {
+            color: #007185;
+            margin-top: 10px;
+        }
+
+        .large-photo {
+            width: 100%;
+            height: 340px;
+        }
+
+
+        .login-box {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #ffd814;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .advertisement img {
+            width: 90%;
+            height: 250px;
+            margin: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <header class="top-nav">
+
+        <div class="brand">
+            <img src="logo.png" alt="Amazon Logo">
+        </div>
+
+        <div class="delivery">
+            <img src="location.png" alt="Location">
+            <div>
+                Hello<br>
+                Select your address
+            </div>
+        </div>
+
+        <div class="search-box">
+            <input type="text">
+            <button>⌕</button>
+        </div>
+
+        <div class="nav-option">
+            <img src="indian flag.png" alt="India"> ▼
+        </div>
+
+        <div class="nav-option">
+            <div>
+                Hello, Sign in<br>
+                Account & Lists ▼
+            </div>
+        </div>
+
+        <div class="nav-option">
+            <div>
+                Returns<br>
+                & Orders
+            </div>
+        </div>
+
+        <div class="nav-option">
+            <img src="cart icon.png" alt="Cart">
+            Cart
+        </div>
+
+    </header>
+
+
+    <nav class="category-nav">
+
+        <div class="menu-all">
+            <img src="ham burger icon.png" alt="Menu">
+            All
+        </div>
+
+        <div>Best Sellers</div>
+        <div>Mobiles</div>
+        <div>Customer Service</div>
+        <div>Today's Deals</div>
+        <div>Fashion</div>
+        <div>Electronics</div>
+        <div>Books</div>
+        <div>Prime</div>
+        <div>New Releases</div>
+        <div>Home & Kitchen</div>
+        <div>Amazon Pay</div>
+
+    </nav>
+
+
+    <section class="hero">
+    </section>
+
+
+    <main class="shopping-area">
+
+
+        <section class="shopping-card">
+
+            <h2>Upgrade your home | Amazon Brands & more</h2>
+
+            <div class="item-list">
+
+                <div class="item">
+                    <img src="image 17.png" alt="Smart LED TVs">
+                    <p>Smart LED TVs</p>
+                </div>
+
+                <div class="item">
+                    <img src="image 18.png" alt="Appliances">
+                    <p>Appliances</p>
+                </div>
+
+                <div class="item">
+                    <img src="image 19.png" alt="Furniture">
+                    <p>Furniture</p>
+                </div>
+
+                <div class="item">
+                    <img src="image 20.png" alt="Kitchen products">
+                    <p>Kitchen products</p>
+                </div>
+
+            </div>
+
+            <p class="shop-link">Shop now</p>
+
+        </section>
+
+
+        <section class="shopping-card">
+
+            <h2>Revamp your home in style</h2>
+
+            <div class="item-list">
+
+                <div class="item">
+                    <img src="image 21.png" alt="Bedsheets">
+                    <p>Bedsheets, curtains & more</p>
+                </div>
+
+                <div class="item">
+                    <img src="image 22.png" alt="Decoration">
+                    <p>Home decoration</p>
+                </div>
+
+                <div class="item">
+                    <img src="image 23.png" alt="Storage">
+                    <p>Home storage</p>
+                </div>
+
+                <div class="item">
+                    <img src="image 24.png" alt="Lighting">
+                    <p>Lighting solutions</p>
+                </div>
+
+            </div>
+
+            <p class="shop-link">Explore all</p>
+
+        </section>
+
+
+        <section class="shopping-card">
+
+            <h2>Up to 70% off | Clearance store</h2>
+
+            <img class="large-photo" src="image 25.png" alt="Clearance products">
+
+            <p class="shop-link">See more</p>
+
+        </section>
+
+
+        <section class="shopping-card">
+
+            <div class="login-box">
+
+                <h2>Sign in for your best experience</h2>
+
+                <button>Sign in securely</button>
+
+            </div>
+
+            <div class="advertisement">
+                <img src="image 26.png" alt="Amazon Advertisement">
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
