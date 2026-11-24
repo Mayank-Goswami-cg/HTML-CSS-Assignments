@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .spotify-app {
+            height: 100vh;
+            min-height: 600px;
+            padding: 7px 7px 0;
+            display: grid;
+            grid-template-columns: 162px 1fr;
+            grid-template-rows: 1fr 64px 18px;
+            gap: 0 7px;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            grid-column: 1;
+            grid-row: 1;
+            background: #000;
+            padding: 12px 5px;
+            position: relative;
+        }
+
+        .spotify-logo {
+            width: 94px;
+            display: block;
+            margin: 0 0 16px 10px;
+        }
+
+        .menu-option {
+            height: 29px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 11px;
+            margin-bottom: 1px;
+            border-radius: 4px;
+            color: #eee;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .menu-option.selected {
+            background: #282828;
+        }
+
+        .menu-option img {
+            width: 17px;
+            height: 17px;
+            object-fit: contain;
+        }
+
+        .menu-space {
+            height: 13px;
+        }
+
+        .playlist-heading {
+            margin: 9px 12px 8px;
+            color: #ddd;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .playlist-name {
+            display: block;
+            padding: 6px 12px;
+            color: #eee;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .download-app {
+            position: absolute;
+            bottom: 10px;
+            left: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .download-app img {
+            width: 15px;
+            height: 15px;
+        }
+
+        .content-area {
+            grid-column: 2;
+            grid-row: 1;
+            padding: 0 22px 25px;
+            overflow-y: auto;
+            border-radius: 7px 7px 0 0;
+            background: linear-gradient(to bottom, #252525, #191919 40%, #121212);
+            scrollbar-width: thin;
+            scrollbar-color: #555 transparent;
+        }
+
+        .navigation-bar {
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .history-icons img {
+            width: 55px;
+            height: 23px;
+            object-fit: contain;
+        }
+
+        .profile-picture {
+            width: 81px;
+            height: 25px;
+            object-fit: contain;
+        }
+
+        h1 {
+            margin: 4px 0 16px;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .quick-playlists {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 11px 16px;
+        }
+
+        .quick-card {
+            height: 56px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+            background: #303030;
+            font-size: 11px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .quick-card:hover {
+            background: #414141;
+        }
+
+        .quick-card img {
+            width: 56px;
+            height: 56px;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .quick-card span {
+            line-height: 15px;
+        }
+
+        .heading-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 28px 0 15px;
+        }
+
+        .heading-row h2 {
+            font-size: 16px;
+        }
+
+        .heading-row a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .podcast-list {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .podcast-card {
+            min-width: 0;
+            padding: 11px 10px 13px;
+            border-radius: 6px;
+            background: #191919;
+            transition: background 0.2s;
+        }
+
+        .podcast-card:hover {
+            background: #282828;
+        }
+
+        .podcast-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            margin-bottom: 13px;
+            border-radius: 7px;
+            object-fit: cover;
+        }
+
+        .podcast-card h3 {
+            margin-bottom: 5px;
+            overflow: hidden;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .podcast-card p {
+            overflow: hidden;
+            color: #aaa;
+            font-size: 10px;
+            line-height: 15px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .bottom-player {
+            grid-column: 1 / 3;
+            grid-row: 2;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            align-items: center;
+            padding: 0 12px;
+            background: #181818;
+        }
+
+        .current-song {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .song-cover {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+
+        .song-title {
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .song-artist {
+            margin-top: 4px;
+            color: #aaa;
+            font-size: 9px;
+        }
+
+        .heart-icon {
+            width: 13px;
+            height: 13px;
+            margin-left: 8px;
+            object-fit: contain;
+        }
+
+        .playback-area {
+            width: 100%;
+            max-width: 395px;
+            justify-self: center;
+        }
+
+        .playback-buttons {
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .playback-buttons img {
+            width: 150px;
+            height: 17px;
+            object-fit: contain;
+        }
+
+        .song-progress {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 3px;
+            color: #aaa;
+            font-size: 9px;
+        }
+
+        .progress-track {
+            height: 4px;
+            flex: 1;
+            overflow: hidden;
+            border-radius: 5px;
+            background: #555;
+        }
+
+        .progress-value {
+            width: 78%;
+            height: 100%;
+            border-radius: 5px;
+            background: #b3b3b3;
+        }
+
+        .extra-controls {
+            justify-self: end;
+        }
+
+        .extra-controls img {
+            width: 160px;
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .device-bar {
+            grid-column: 1 / 3;
+            grid-row: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            border-radius: 0 0 6px 6px;
+            background: #1ed760;
+            color: #000;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="spotify-app">
+
+        <aside class="left-panel">
+
+            <img class="spotify-logo" src="Spotify logo.png" alt="Spotify logo">
+
+            <div class="menu-option selected">
+                <img src="Home.png" alt="">
+                <span>Home</span>
+            </div>
+
+            <div class="menu-option">
+                <img src="Search.png" alt="">
+                <span>Search</span>
+            </div>
+
+            <div class="menu-option">
+                <img src="Your library.png" alt="">
+                <span>Your Library</span>
+            </div>
+
+            <div class="menu-space"></div>
+
+            <div class="menu-option">
+                <img src="Create.png" alt="">
+                <span>Create Playlist</span>
+            </div>
+
+            <div class="menu-option">
+                <img src="Liked.png" alt="">
+                <span>Liked Songs</span>
+            </div>
+
+            <div class="menu-option">
+                <img src="your episodes.png" alt="">
+                <span>Your Episodes</span>
+            </div>
+
+            <div class="menu-space"></div>
+
+            <p class="playlist-heading">FAV</p>
+
+            <a href="#" class="playlist-name">Daily Mix 1</a>
+            <a href="#" class="playlist-name">Discover Weekly</a>
+            <a href="#" class="playlist-name">Malayalam</a>
+            <a href="#" class="playlist-name">Dance / Electronic Mix</a>
+            <a href="#" class="playlist-name">EDM / Popular</a>
+
+            <div class="download-app">
+                <img src="grommet-icons_install-option.png" alt="">
+                <span>Install App</span>
+            </div>
+
+        </aside>
+
+        <main class="content-area">
+
+            <header class="navigation-bar">
+
+                <div class="history-icons">
+                    <img src="top arrow navigation.png" alt="Back and forward buttons">
+                </div>
+
+                <img class="profile-picture" src="User.png" alt="User profile">
+
+            </header>
+
+            <h1>Good morning</h1>
+
+            <section class="quick-playlists">
+
+                <div class="quick-card">
+                    <img src="object1.png" alt="Liked songs cover">
+                    <span>Liked Songs</span>
+                </div>
+
+                <div class="quick-card">
+                    <img src="image4.png" alt="Neffex playlist cover">
+                    <span>Neffex Playlist</span>
+                </div>
+
+                <div class="quick-card">
+                    <img src="image3.png" alt="K/DA playlist cover">
+                    <span>K/DA</span>
+                </div>
+
+                <div class="quick-card">
+                    <img src="image1.png" alt="Liked songs cover">
+                    <span>Liked Songs</span>
+                </div>
+
+                <div class="quick-card">
+                    <img src="image2.png" alt="Dance electronic mix cover">
+                    <span>Dance / Electronic<br>Mix</span>
+                </div>
+
+            </section>
+
+            <section class="shows-section">
+
+                <div class="heading-row">
+                    <h2>Shows you might like</h2>
+                    <a href="#">SEE ALL</a>
+                </div>
+
+                <div class="podcast-list">
+
+                    <article class="podcast-card">
+                        <img src="image9.png" alt="Weekly Motivation cover">
+                        <h3>Weekly Motivation</h3>
+                        <p>Ben Leo Scott</p>
+                    </article>
+
+                    <article class="podcast-card">
+                        <img src="image8.png" alt="Meditation Self cover">
+                        <h3>MEDITATION SELF</h3>
+                        <p>John Hussain</p>
+                    </article>
+
+                    <article class="podcast-card">
+                        <img src="image7.png" alt="Words beyond action cover">
+                        <h3>Words beyond action</h3>
+                        <p>Inspirational stories</p>
+                    </article>
+
+                    <article class="podcast-card">
+                        <img src="image6.png" alt="The Alexa Show cover">
+                        <h3>The Alexa Show</h3>
+                        <p>Adriana Tom</p>
+                    </article>
+
+                    <article class="podcast-card">
+                        <img src="image5.png" alt="The Stories of Mary cover">
+                        <h3>The Stories of Mary</h3>
+                        <p>Laura</p>
+                    </article>
+
+                    <article class="podcast-card">
+                        <img src="image10.png" alt="Motivation Daily cover">
+                        <h3>Motivation Daily</h3>
+                        <p>Gaurav Sharma</p>
+                    </article>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="bottom-player">
+
+            <div class="current-song">
+
+                <img class="song-cover" src="image11.png" alt="Dreaming On album cover">
+
+                <div class="song-details">
+                    <p class="song-title">Dreaming On</p>
+                    <p class="song-artist">NEFFEX</p>
+                </div>
+
+                <img class="heart-icon" src="bx_bxs-heart.png" alt="Liked song">
+
+            </div>
+
+            <div class="playback-area">
+
+                <div class="playback-buttons">
+                    <img src="Music Player Options.png" alt="Music player controls">
+                </div>
+
+                <div class="song-progress">
+                    <span>2:11</span>
+
+                    <div class="progress-track">
+                        <div class="progress-value"></div>
+                    </div>
+
+                    <span>2:42</span>
+                </div>
+
+            </div>
+
+            <div class="extra-controls">
+                <img src="Right options.png" alt="Volume and player options">
+            </div>
+
+        </footer>
+
+        <div class="device-bar">
+            Listening on ASUS-ROG-G531GT
+        </div>
+
+    </div>
+
+</body>
+</html>
